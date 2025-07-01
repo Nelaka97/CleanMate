@@ -22,19 +22,24 @@
           📅 This Week's Task Schedule:
         </h2>
 
-          <p class="text-sm font-semibold text-gray-500 mb-6">({{ formatDate(weekStart) }} - {{ formatDate(weekEnd) }})</p>
+        <p class="text-sm font-semibold text-gray-500 mb-6">({{ formatDate(weekStart) }} - {{ formatDate(weekEnd) }})
+        </p>
 
-        <div class="grid md:grid-cols-7 gap-2 mb-6">
-          <div v-for="day in weekDays" :key="day.date" class="text-center p-3 rounded-lg border" :class="{
-            'bg-indigo-100 border-indigo-300': isToday(day.date),
-            'bg-gray-50 border-gray-200': !isToday(day.date)
-          }">
-            <div class="font-semibold text-sm text-gray-700">{{ day.name }}</div>
-            <div class="text-xs text-gray-500">{{ day.date.getDate() }}</div>
-            <div class="mt-2 space-y-1">
-              <div v-for="task in getTasksForDay(day.name)" :key="task"
-                class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
-                {{ task }}
+        <!-- Mobile: Horizontal scroll, Desktop: Grid -->
+        <div class="md:grid md:grid-cols-7 md:gap-2 mb-6 overflow-x-auto">
+          <div class="flex md:contents gap-2 md:gap-0 pb-2 md:pb-0">
+            <div v-for="day in weekDays" :key="day.date"
+              class="flex-shrink-0 w-32 md:w-auto text-center p-3 rounded-lg border" :class="{
+                'bg-indigo-100 border-indigo-300': isToday(day.date),
+                'bg-gray-50 border-gray-200': !isToday(day.date)
+              }">
+              <div class="font-semibold text-sm text-gray-700">{{ day.name }}</div>
+              <div class="text-xs text-gray-500">{{ day.date.getDate() }}</div>
+              <div class="mt-2 space-y-1">
+                <div v-for="task in getTasksForDay(day.name)" :key="task"
+                  class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                  {{ task }}
+                </div>
               </div>
             </div>
           </div>
